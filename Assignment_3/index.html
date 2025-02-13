@@ -1,49 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="Nirmohi Hemant Kathrecha" />
-    <meta
-      name="keywords"
-      content="architecture, urbanism, migration, climate change, equity, gender, housing studies"
-    />
-    <title>Assignment 3 - NYC Plazas</title>
-    <link rel="stylesheet" href="../style.css" />
-    <link
-      href="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css"
-      rel="stylesheet"
-    />
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <header>
-      <nav>
-        <a class="nav-title" href="../index.html">Nirmohi Hemant Kathrecha</a>
-      </nav>
-    </header>
-    
-    <main>
-      <div class="assignment">
-        <p class="assignment-title">Mapping Public Spaces & Transit in NYC</p>
-        <p class="assignment-description">This map examines the distribution of open space parks, privately owned public spaces (POPS), pedestrian plazas under the NYC Plaza Program, and ADA-accessible subway stations across New York City. By visualizing these elements together, the map highlights the relationship between public space, transit accessibility, and private contributions to the urban fabric, offering insights into connectivity, spatial distribution, and gaps in access to open spaces.</p>
-      </div>
-    </main>
-    
-    <div id="map"></div>
-    
-    <footer>
-      <p class="footer-text">
-        Send me a <a href="mailto:nhk45@cornell.edu">message</a>
-      </p>
-    </footer>
-    
-    <script src="map.js"></script>
-  </body>
-</html>
+document.addEventListener("DOMContentLoaded", function () {
+    mapboxgl.accessToken = 'pk.eyJ1IjoibmlybW9oaSIsImEiOiJjbTExMGRyNXkwbnh0Mm5vcmtteWJwOWplIn0.MSqHgjuT6rq8AL6lEXDxVQ';
+
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/nirmohi/cm72v1ilj00ai01s3bjv8h2gy',
+        zoom: 10,
+        center: [-74, 40.725],
+        maxZoom: 15,
+        minZoom: 8,
+        maxBounds: [[-74.45, 40.45], [-73.55, 41]]
+    });
+
+    map.on('load', function () {
+        let layers = map.getStyle().layers;
+        let firstSymbolId;
+        for (var i = 0; i < layers.length; i++) {
+            if (layers[i].type === 'symbol') {
+                firstSymbolId = layers[i].id;
+                break;
+            }
+        }
+
+        map.addLayer({
+            'id': 'pedestrianPlazas',
+            'type': 'fill',
+            'source': {
+                'type': 'geojson',
+                'data': 'data/NYC_DOT_Pedestrian_Plazas_20250207.geojson'
+            },
+            'paint': {
+                'fill-color': '#ff0000',
+                'fill-opacity': 0.7,
+            }
+        }, firstSymbolId);
+
+        map.addLayer({
+            'id': 'popsLayer',
+            'type': 'fill',
+            'source': {
+                'type': 'geojson',
+                'data': 'data/pops_bldgs_lots.geojson'
+            },
+            'paint': {
+                'fill-color': '#8897bd',
+                'fill-opacity': 0.7,
+                'fill-outline-color': '#2A5FA1'
+            }
+        }, firstSymbolId);
+
+        map.addLayer({
+            'id': 'subwayStations',
+            'type': 'circle',
+            'source': {
+                'type': 'geojson',
+                'data': 'data/MTA_Subway_Stations_20250212.geojson'
+            },
+            'filter': ['==', ['get', 'ada'], '1'],
+            'paint': {
+                'circle-color': '#ffff00',
+                'circle-radius': 2.5,
+                'circle-opacity': 0.9,
+                'circle-stroke-color': '#000000',
+                'circle-stroke-width': 0.5
+            }
+        }, firstSymbolId);
+
+        map.addLayer({
+            'id': 'parksLayer',
+            'type': 'fill',
+            'source': {
+                'type': 'geojson',
+                'data': 'data/Parks_Properties_20250213.geojson'
+            },
+            'paint': {
+                'fill-color': '#6ECF68',
+                'fill-opacity': 0.6,
+                'fill-outline-color': '#4A9F50'
+            }
+        }, firstSymbolId);
+
+        const popup = new mapboxgl.Popup({ closeButton: false, closeOnClick: false });
+
+        function addHoverPopup(layerId, contentCallback) {
+            map.on('mousemove', layerId, function (e) {
+                map.getCanvas().style.cursor = 'pointer';
+                if (e.features.length > 0) {
+                    const feature = e.features[0];
+                    popup
+                        .setLngLat(e.lngLat)
+                        .setHTML(contentCallback(feature.properties))
+                        .addTo(map);
+                }
+            });
+            map.on('mouseleave', layerId, function () {
+                map.getCanvas().style.cursor = '';
+                popup.remove();
+            });
+        }
+
+        addHoverPopup('pedestrianPlazas', props => `<h4>Pedestrian Plaza</h4><p><b>Name:</b> ${props.plazaname || 'Unknown'}</p><p><b>Area:</b> ${props.shape_area || 'No Data'} sq. ft.</p>`);
+        addHoverPopup('popsLayer', props => `<h4>Privately Owned Public Spaces</h4><p><b>Building Name:</b> ${props.building_name || 'Unknown'}</p><p><b>Year:</b> ${props.year_completed || 'No Data'}</p><p><b>Area:</b> ${props.Shape_Area || 'No Data'} sq. ft.</p>`);
+        addHoverPopup('subwayStations', props => `<h4>Subway Station</h4><p><b>Name:</b> ${props.stop_name || 'Unknown'}</p><p><b>Lines:</b> ${props.daytime_routes || 'No Data'}</p>`);
+        addHoverPopup('parksLayer', props => `<h4>Parks</h4><p><b>Park Name:</b> ${props.name311 || 'Unknown'}</p><p><b>Area:</b> ${props.acres || 'No Data'} acres</p>`);
+
+        const legend = document.createElement("div");
+        legend.id = "legend";
+        legend.style.position = "absolute";
+        legend.style.bottom = "40px";
+        legend.style.left = "10px";
+        legend.style.background = "rgba(255, 255, 255, 0.8)";
+        legend.style.padding = "10px";
+        legend.style.borderRadius = "5px";
+        legend.innerHTML = `
+        <h4>Map Legend</h4>
+        <div><span style="background:#ff0000"></span> Pedestrian Plazas</div>
+        <div><span style="background:#8897bd; border: 1px solid #8897bd;"></span> POPS</div>
+        <div><span style="background:#6ECF68; border: 1px solid #4A9F50;"></span> Parks</div>
+        <div><span class="circle-legend" style="background:#ffff00; border: 1px solid #FFFF00;"></span> Subway Stations</div>
+        `;
+        document.body.appendChild(legend);
+    });
+});
