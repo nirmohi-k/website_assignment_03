@@ -1,0 +1,315 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Typography */
+body {
+    color: #333;
+    background: #ffffff;
+    line-height: 1.8;
+    text-align: left;
+    font-family: "Avenir", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Bodoni Bd BT", serif;
+    font-weight: 700;
+}
+
+p, a, li {
+    font-family: "Avenir", sans-serif;
+    font-weight: 400;
+}
+
+/* Header */
+header {
+    background: #d2d2d2;
+    padding: 20px;
+    text-align: left;
+}
+
+.nav-title {
+    color: rgb(42, 42, 42);
+    font-size: 22px;
+    font-weight: 600;
+    text-decoration: none;
+    font-family: "Bodoni Bd BT", serif;
+    display: block;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 20px; /* Aligns with body text */
+}
+
+/* Main Content */
+main {
+    max-width: 900px;
+    margin: 40px auto; /* Centers content */
+    padding: 0 20px; /* Adds padding to avoid text sticking to edges */
+}
+
+/* Bold Assignment Title */
+.assignment-title {
+    font-weight: 700;
+    font-size: 22px;
+    font-family: "Bodoni Bd BT", serif;
+    margin-bottom: 15px;
+}
+
+/* Project Description */
+.assignment-description {
+    font-size: 16px;
+    font-weight: 400;
+    color: #555;
+}
+
+/* Projects */
+.project {
+    margin: 25px 0;
+    padding: 25px;
+    background: #e6e6e6;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.project-thumbnail {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+}
+
+.project-title {
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: #444;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #222;
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background: #222;
+    color: #d2d2d2;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Map - Full Bleed */
+#map {
+    width: 100vw;
+    height: 500px;
+    margin: 0;
+    border-radius: 0;
+}
+
+/* Map Popup */
+.mapboxgl-popup-content h4 {
+    font-weight: 500;
+    font-size: 1em;
+    border-bottom: 1px solid #505050;
+    margin: 0.5em 0;
+}
+
+.mapboxgl-popup-content p {
+    font-weight: 300;
+    margin: 0.3em 0;
+}
+
+
+/* Typography */
+body {
+    color: #333;
+    background: #ffffff;
+    line-height: 1.8;
+    text-align: left;
+    font-family: "Avenir", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Bodoni Bd BT", serif;
+    font-weight: 700;
+}
+
+p, a, li {
+    font-family: "Avenir", sans-serif;
+    font-weight: 400;
+}
+
+/* Header */
+header {
+    background: #d2d2d2;
+    text-align: center;
+    padding: 20px;
+}
+
+.nav-title {
+    color: rgb(42, 42, 42);
+    font-size: 22px;
+    font-weight: 600;
+    text-decoration: none;
+    font-family: "Bodoni Bd BT", serif;
+}
+
+/* Section */
+section {
+    padding: 60px 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* Projects */
+.project {
+    margin: 25px 0;
+    padding: 25px;
+    background: #e6e6e6;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.project-thumbnail {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+}
+
+.project-title {
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+/* Project Description */
+.project-description {
+    margin-top: 10px;
+    font-size: 15px;
+    color: #555;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: #444;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #222;
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background: #222;
+    color: #d2d2d2;
+    padding: 20px;
+    margin-top: 40px;
+    font-size: 14px;
+}
+
+/* Map Styling */
+#map {
+    width: 100%;
+    height: 500px;
+    margin: 1.5em auto;
+    border-radius: 8px;
+}
+
+.mapboxgl-popup-content h4 {
+    font-weight: 500;
+    font-size: 1em;
+    border-bottom: 1px solid #505050;
+    margin: 0.5em 0;
+}
+
+.mapboxgl-popup-content p {
+    font-weight: 300;
+    margin: 0.3em 0;
+}
+
+#legend {
+    width: 300px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 12px;
+    text-align: left;
+    line-height: 1.5;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    margin: 20px auto; /* Centers it above the footer */
+}
+
+#legend h4 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#legend div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#legend span {
+    width: 20px;
+    height: 15px;
+    display: inline-block;
+    border-radius: 3px;
+}
+#legend {
+    width: 320px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 12px;
+    text-align: left;
+    line-height: 1.5;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+}
+
+#legend h4 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#legend div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#legend span {
+    width: 20px;
+    height: 15px;
+    display: inline-block;
+    border-radius: 3px;
+}
