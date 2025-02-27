@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Nirmohi Hemant Kathrecha" />
+    <meta
+      name="keywords"
+      content="climate change, emissions, greenhouse gases, FAOSTAT, agriculture, IPCC, sustainability"
+    />
+    <title>Global Greenhouse Gas Emissions from Agrifood Systems</title>
+
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Roboto", sans-serif;
+      }
+      #map {
+        width: 100%;
+        height: 80vh;
+      }
+      .controls {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: white;
+        padding: 10px;
+        z-index: 1000;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 220px;
+      }
+      .controls label {
+        font-weight: 500;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .controls select {
+        width: 100%;
+        padding: 5px;
+        font-size: 14px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <a class="nav-title" href="../index.html">Nirmohi Hemant Kathrecha</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="assignment">
+        <p class="assignment-title">Mapping Greenhouse Gas Emissions from Agrifood Systems</p>
+        <p class="assignment-description">
+          This interactive map visualizes greenhouse gas (GHG) emissions from agrifood systems
+          using different projections and classification methods. Data is based on FAOSTAT, which
+          applies Intergovernmental Panel on Climate Change (IPCC) Tier 1 methodologies for GHG inventories.
+          <br><br>
+          Emissions data includes CO₂, CH₄, and N₂O contributions from agriculture, land use, and food systems.
+          Additional information on methodology is available at:
+          <a href="https://files-faostat.fao.org/production/GT/GT_en.pdf" target="_blank">
+            FAOSTAT GHG Methodology (PDF)
+          </a>.
+        </p>
+      </div>
+    </main>
+
+    <!-- Dropdown Controls -->
+    <div class="controls">
+      <label for="projectionSelect">Projection:</label>
+      <select id="projectionSelect">
+        <option value="equalEarth">Equal Earth</option>
+        <option value="mercator">Mercator</option>
+        <option value="albers">Albers</option>
+      </select>
+
+      <label for="classificationSelect">Classification:</label>
+      <select id="classificationSelect">
+        <option value="jenks">Jenks Natural Breaks</option>
+        <option value="quantiles">Quantiles</option>
+        <option value="standardDeviation">Standard Deviation</option>
+      </select>
+    </div>
+
+    <div id="map"></div>
+
+    <footer>
+      <p class="footer-text">
+        For inquiries, send me a <a href="mailto:nhk45@cornell.edu">message</a>.
+      </p>
+    </footer>
+
+    <script src="map.js"></script>
+  </body>
+</html>
